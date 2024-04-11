@@ -1,6 +1,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -8,15 +9,38 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "@/components/ui/button";
+
 import { ArrowCircleDown, ArrowCircleUp } from "phosphor-react";
 
+import {
+  ButtonHTMLAttributes,
+  ColHTMLAttributes,
+  HTMLAttributes,
+  SetStateAction,
+  useState,
+} from "react";
+import { AlertCircle } from "lucide-react";
+
+type ButtonValue = "entrada" | "saida";
+
+interface ButtonDisabled {
+  disabled?: "boolean" | "undefined";
+}
+
 export function NewTrasictionHeader() {
+  const [selectedButton, setSelectedButton] = useState<ButtonValue | null>(
+    null
+  );
+  function handleButtonClick(buttonValue: ButtonValue | null) {
+    setSelectedButton(buttonValue);
+  }
+
   return (
-    <div className="flex justify-center gap-4">
+    <form>
       <Dialog>
         <DialogTrigger asChild>
           <Button className="bg-primary" variant="outline">
-            New Transition
+            Nova Transação
           </Button>
         </DialogTrigger>
 
@@ -35,26 +59,46 @@ export function NewTrasictionHeader() {
             </div>
 
             <div className="grid place-items-center gap-4 w-full">
-              <Input placeholder="Preço" className="col-span-3" />
+              <Input placeholder="Categoria" className="col-span-3" />
             </div>
           </div>
 
           <div className="flex flex-row justify-center gap-4">
-            <Button className="flex gap-3">
+            <Button
+              className={`flex gap-3 ${
+                selectedButton === "entrada"
+                  ? "bg-green-400"
+                  : "bg-secondary-foreground"
+              } hover:bg-green-500`}
+              onClick={() => handleButtonClick("entrada")}
+            >
               <ArrowCircleUp fontSize={16} color="#F75A68" />
               Entrada
             </Button>
-            <Button className="flex gap-3">
+            <Button
+              className={`flex gap-3 ${
+                selectedButton === "saida"
+                  ? "bg-green-400"
+                  : "bg-secondary-foreground"
+              } hover:bg-green-500`}
+              onClick={() => handleButtonClick("saida")}
+            >
               <ArrowCircleDown fontSize={16} color="#00875F" />
               Saida
             </Button>
           </div>
 
+          <DialogDescription className="flex flex-row justify-center items-center gap-2">
+            <AlertCircle /> Selecione uma das opções
+          </DialogDescription>
+
           <DialogFooter>
-            <Button type="submit">Cadastrar</Button>
+            <Button className="w-full" type="submit">
+              Cadastrar
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
+    </form>
   );
 }
