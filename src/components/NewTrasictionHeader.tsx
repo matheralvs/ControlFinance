@@ -12,20 +12,10 @@ import { Button } from "@/components/ui/button";
 
 import { ArrowCircleDown, ArrowCircleUp } from "phosphor-react";
 
-import {
-  ButtonHTMLAttributes,
-  ColHTMLAttributes,
-  HTMLAttributes,
-  SetStateAction,
-  useState,
-} from "react";
+import { useState } from "react";
 import { AlertCircle } from "lucide-react";
 
 type ButtonValue = "entrada" | "saida";
-
-interface ButtonDisabled {
-  disabled?: "boolean" | "undefined";
-}
 
 export function NewTrasictionHeader() {
   const [selectedButton, setSelectedButton] = useState<ButtonValue | null>(

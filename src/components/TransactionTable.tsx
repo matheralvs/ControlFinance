@@ -1,100 +1,43 @@
+import { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableFooter, TableRow } from "./ui/table";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-  
-];
+interface Transaction {
+  id: number;
+  description: string;
+  type: "entrada" | "saída";
+  price: number;
+  category: string;
+  createAt: string;
+}
 
 export function TransactionTable() {
+  const [transactions, setTransaction] = useState<Transaction[]>([]);
+
+  async function loadTransactions() {
+    const resp = await fetch("http://localhost:3000/transactions");
+    const data = await resp.json();
+
+    setTransaction(data);
+  }
+  useEffect(() => {
+    loadTransactions();
+  }, []);
+
   return (
     <Table className="max-w-[1120px]  p-9 gap-4  m-auto">
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+        {transactions.map((transaction) => (
+          <TableRow key={transaction.id}>
+            <TableCell className="font-medium">
+              {transaction.description}
+            </TableCell>
+            <TableCell>{transaction.type}</TableCell>
+            <TableCell>{transaction.price}</TableCell>
+            <TableCell className="text-right">{transaction.category}</TableCell>
+            <TableCell>{transaction.createAt}</TableCell>
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter>
     </Table>
   );
 }
