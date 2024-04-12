@@ -1,7 +1,12 @@
 import { Card, CardHeader } from "@/components/ui/card";
+import { TransactionsContext } from "@/contexts/TransactionsContext";
 import { CurrencyDollar, ArrowCircleUp, ArrowCircleDown } from "phosphor-react";
+import { useContext } from "react";
 
 export function Summary() {
+  const { transactions } = useContext(TransactionsContext);
+  console.log(transactions);
+
   return (
     <div className=" overflow-hidden w-full max-w-fit mx-auto px-4 ">
       <div className=" overflow-x-scroll flex gap-4 snap-x flex-row py-8">
