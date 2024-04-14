@@ -1,11 +1,31 @@
 import { Card, CardHeader } from "@/components/ui/card";
 import { TransactionsContext } from "@/contexts/TransactionsContext";
+import { dataFormatter, priceFormatter } from "@/utils/formatter";
+
 import { CurrencyDollar, ArrowCircleUp, ArrowCircleDown } from "phosphor-react";
+
 import { useContext } from "react";
 
 export function Summary() {
   const { transactions } = useContext(TransactionsContext);
-  console.log(transactions);
+
+  const summary = transactions.reduce(
+    (acc, transaction) => {
+      if (transaction.type === "income") {
+        acc.income += transaction.price;
+        acc.total += transaction.price;
+      } else {
+        acc.outcome += transaction.price;
+        acc.total -= transaction.price;
+      }
+      return acc;
+    },
+    {
+      income: 0,
+      outcome: 0,
+      total: 0,
+    }
+  );
 
   return (
     <div className=" overflow-hidden w-full max-w-fit mx-auto px-4 ">
@@ -14,7 +34,7 @@ export function Summary() {
           <CardHeader>
             <span>Saida</span>
 
-            <p>R$ 17.400,00</p>
+            <strong>{priceFormatter.format(summary.income)}</strong>
 
             <ArrowCircleUp fontSize={32} color="#F75A68" />
           </CardHeader>
@@ -24,7 +44,7 @@ export function Summary() {
           <CardHeader>
             <span>Entrada</span>
 
-            <p>R$ 17.400,00</p>
+            <strong>{priceFormatter.format(summary.outcome)}</strong>
 
             <ArrowCircleDown fontSize={32} color="#00875F" />
           </CardHeader>
@@ -34,7 +54,7 @@ export function Summary() {
           <CardHeader>
             <span>Total</span>
 
-            <p>R$ 17.400,00</p>
+            <strong>{priceFormatter.format(summary.total)}</strong>
             <CurrencyDollar fontSize={32} color="#fff" />
           </CardHeader>
         </Card>
