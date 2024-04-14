@@ -1,6 +1,6 @@
 import { Card, CardHeader } from "@/components/ui/card";
 import { TransactionsContext } from "@/contexts/TransactionsContext";
-import { dataFormatter, priceFormatter } from "@/utils/formatter";
+import { priceFormatter } from "@/utils/formatter";
 
 import { CurrencyDollar, ArrowCircleUp, ArrowCircleDown } from "phosphor-react";
 
