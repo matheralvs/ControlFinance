@@ -10,13 +10,13 @@ export function TransactionTable() {
     <Table className="max-w-[1120px] p-9   gap-4  m-auto">
       <TableBody className=" p-28 bg-gray-900  ">
         {transactions.map((transaction) => (
-          <TableRow className="" key={transaction.id}>
+          <TableRow key={transaction.id}>
             <TableCell className="font-medium">
               {transaction.description}
             </TableCell>
 
             <TableCell>
-              {transaction.type === "income" && "- "}
+              {transaction.type === "income" && " - "}
               {priceFormatter.format(transaction.price)}
             </TableCell>
 
