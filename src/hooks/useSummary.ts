@@ -1,4 +1,3 @@
-import { Summary } from "@/components/Summary";
 import { TransactionsContext } from "@/contexts/TransactionsContext";
 import { useContext } from "react";
 
