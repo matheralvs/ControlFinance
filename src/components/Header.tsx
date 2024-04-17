@@ -1,6 +1,6 @@
 import { ModeToggle } from "@/components/DarkMode/mode-toggle";
 
-import { NewTransactionHeader } from "./NewTransactionHeader";
+import { NewTransactionModal } from "@/components/NewTransactionModal.tsx";
 
 export function Header() {
   return (
@@ -9,7 +9,7 @@ export function Header() {
         <strong className="text-secondary-foreground">Control</strong>Finance
       </h1>
       <div className="flex gap-4">
-        <NewTransactionHeader />
+        <NewTransactionModal />
         <ModeToggle />
       </div>
     </header>

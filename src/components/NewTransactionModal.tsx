@@ -26,7 +26,7 @@ const newTransactionFormSchema = z.object({
 
 type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>;
 
-export function NewTransactionHeader() {
+export function NewTransactionModal() {
   const {
     control,
     register,
@@ -105,7 +105,7 @@ export function NewTransactionHeader() {
                   className="flex flex-row justify-center gap-4"
                 >
                   <RadioGroupItem
-                    className="flex gap-3 hover:bg-green-400 p-2 items-center rounded-md "
+                    className="flex max-w-[300px] gap-3 hover:bg-green-400 p-2 items-center rounded-md "
                     value="income"
                   >
                     <ArrowCircleUp fontSize={16} color="#F75A68" />
