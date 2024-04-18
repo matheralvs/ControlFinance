@@ -8,7 +8,7 @@ export function TransactionTable() {
 
   return (
     <Table className="max-w-[1120px] p-9   gap-4  m-auto">
-      <TableBody className=" p-28 bg-gray-900  ">
+      <TableBody>
         {transactions.map((transaction) => (
           <TableRow key={transaction.id}>
             <TableCell className="font-medium">
