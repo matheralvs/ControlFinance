@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@radix-ui/react-radio-group";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import { ArrowCircleDown, ArrowCircleUp } from "phosphor-react";
+import { ArrowCircleUp } from "phosphor-react";
 
 import { AlertCircle } from "lucide-react";
 import * as z from "zod";
@@ -34,6 +34,9 @@ export function NewTransactionModal() {
     formState: { isSubmitting },
   } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
+    defaultValues: {
+      type: "income",
+    },
   });
 
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
@@ -88,11 +91,6 @@ export function NewTransactionModal() {
             />
           </div>
 
-          <DialogDescription className="flex flex-row justify-center items-center gap-2">
-            <AlertCircle />
-            Selecione uma das opções
-          </DialogDescription>
-
           <Controller
             control={control}
             name="type"
@@ -101,28 +99,35 @@ export function NewTransactionModal() {
               return (
                 <RadioGroup
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  value={field.value}
                   className="flex flex-row justify-center gap-4"
                 >
-                  <RadioGroupItem
+                  <Button
+                    type="submit"
                     className="flex max-w-[300px] gap-3 hover:bg-green-400 p-2 items-center rounded-md "
-                    value="income"
                   >
-                    <ArrowCircleUp fontSize={16} color="#F75A68" />
-                    Entrada
-                  </RadioGroupItem>
+                    <RadioGroupItem value="income">
+                      <ArrowCircleUp fontSize={16} color="#000" />
+                    </RadioGroupItem>
+                    <p>Entrada</p>
+                  </Button>
 
-                  <RadioGroupItem
-                    className="flex gap-3 hover:bg-rose-400 p-2 items-center rounded-md"
-                    value="outcome"
-                  >
-                    <ArrowCircleDown fontSize={16} color="#00875F" />
-                    Saida
-                  </RadioGroupItem>
+                  <Button className="flex max-w-[300px] gap-3 hover:bg-rose-400 p-2 items-center rounded-md ">
+                    <RadioGroupItem value="outcome">
+                      <ArrowCircleUp fontSize={16} color="#000" />
+                    </RadioGroupItem>
+                    <p>Saída</p>
+                  </Button>
                 </RadioGroup>
               );
             }}
           />
+
+          <DialogDescription className="flex flex-row justify-center items-center gap-2">
+            <AlertCircle />
+            Selecione uma das opções
+          </DialogDescription>
+
           <Button
             className="w-full disabled:cursor-not-allowed disabled:bg-opacity-5 "
             type="submit"
