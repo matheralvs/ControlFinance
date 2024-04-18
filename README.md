@@ -3,17 +3,25 @@
 
 - [Installation](#installation)
 
-## Installation
+## 🚀 Installation
 
-# Clone este repositório
-$ git clone 
+1. Clone este repositório
+```
+git clone https://github.com/joanacardosox/ControlFinance.git
+```
 
-# Acesse a pasta do projeto no terminal/cmd
-$ cd controlFinance
+2. Acesse a pasta do projeto no terminal/cmd
 
-# Instale as dependências
-$ npm install
+```
+cd controlFinance
+```
 
-# Execute a aplicação em modo de desenvolvimento
-$ npm run dev
+4. Instale as dependências
+```
+yarn install
+```
 
+6. Execute a aplicação em modo de desenvolvimento
+```
+yarn run dev
+```
