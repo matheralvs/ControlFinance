@@ -16,13 +16,15 @@ export function TransactionTable() {
             </TableCell>
 
             <TableCell>
-              {transaction.type === "income" && " - "}
+              {transaction.type === "outcome" && "- "}
               {priceFormatter.format(transaction.price)}
             </TableCell>
 
             <TableCell className="text-right">{transaction.category}</TableCell>
             <TableCell>
-              {dataFormatter.format(new Date(transaction.createAt))}
+              {transaction.createdAt
+                ? dataFormatter.format(new Date(transaction.createdAt))
+                : "Invalid Date"}
             </TableCell>
           </TableRow>
         ))}
