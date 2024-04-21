@@ -1,13 +1,13 @@
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { TransactionsContext } from "@/contexts/TransactionsContext";
-import { useContext } from "react";
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { TransactionsContext } from '@/contexts/TransactionsContext';
+import { useContext } from 'react';
 
 const searchFormSchema = z.object({
-  query: z.string(),
+  query: z.string()
 });
 
 type SearchFormInputs = z.infer<typeof searchFormSchema>;
@@ -18,9 +18,9 @@ export function Search() {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting }
   } = useForm<SearchFormInputs>({
-    resolver: zodResolver(searchFormSchema),
+    resolver: zodResolver(searchFormSchema)
   });
 
   async function handleSearchTransactions(data: SearchFormInputs) {
@@ -30,18 +30,18 @@ export function Search() {
   return (
     <form
       onSubmit={handleSubmit(handleSearchTransactions)}
-      className="max-w-[1120px] flex flex-row  p-9 gap-4  m-auto"
+      className='max-w-[1120px] flex flex-row  p-9 gap-4  m-auto'
     >
       <Input
-        type="text"
-        placeholder="Busque uma transição...."
-        {...register("query")}
+        type='text'
+        placeholder='Busque uma transição....'
+        {...register('query')}
       />
       <Button
-        type="submit"
+        type='submit'
         disabled={isSubmitting}
-        className="bg-primary  disabled:cursor-not-allowed disabled:opacity-5;
-"
+        className='bg-primary  disabled:cursor-not-allowed disabled:opacity-5;
+'
       >
         Buscar
       </Button>

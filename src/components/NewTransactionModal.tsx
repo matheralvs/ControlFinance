@@ -4,28 +4,28 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "./ui/input";
-import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+  DialogTrigger
+} from '@/components/ui/dialog';
+import { Input } from './ui/input';
+import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
-import { TransactionsContext } from "@/contexts/TransactionsContext";
+import { TransactionsContext } from '@/contexts/TransactionsContext';
 
-import { ArrowCircleUp } from "phosphor-react";
+import { ArrowCircleUp } from 'phosphor-react';
 
-import { AlertCircle } from "lucide-react";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+import { AlertCircle } from 'lucide-react';
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Controller, useForm } from 'react-hook-form';
 
-import { useContext } from "react";
+import { useContext } from 'react';
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
   price: z.number(),
   category: z.string(),
-  type: z.enum(["income", "outcome"]),
+  type: z.enum(['income', 'outcome'])
 });
 
 type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>;
@@ -38,12 +38,12 @@ export function NewTransactionModal() {
     register,
     handleSubmit,
     formState: { isSubmitting },
-    reset,
+    reset
   } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
     defaultValues: {
-      type: "outcome",
-    },
+      type: 'outcome'
+    }
   });
 
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
@@ -53,7 +53,7 @@ export function NewTransactionModal() {
       description,
       price,
       category,
-      type,
+      type
     });
 
     reset();
@@ -62,74 +62,74 @@ export function NewTransactionModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-primary" variant="outline">
+        <Button className='bg-primary' variant='outline'>
           Nova Transação
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
           <DialogTitle>Nova Transação</DialogTitle>
         </DialogHeader>
 
         <form
           onSubmit={handleSubmit(handleCreateNewTransaction)}
-          className="flex flex-col gap-4 py-4 items-center"
+          className='flex flex-col gap-4 py-4 items-center'
         >
-          <div className="grid place-items-center gap-4 w-full">
+          <div className='grid place-items-center gap-4 w-full'>
             <Input
-              type="text"
-              placeholder="Descrição"
-              className="col-span-3"
+              type='text'
+              placeholder='Descrição'
+              className='col-span-3'
               required
-              {...register("description")}
+              {...register('description')}
             />
           </div>
 
-          <div className="grid place-items-center gap-4 w-full">
+          <div className='grid place-items-center gap-4 w-full'>
             <Input
-              type="text"
-              placeholder="Preço"
-              className="col-span-3"
+              type='text'
+              placeholder='Preço'
+              className='col-span-3'
               required
-              {...register("price", { valueAsNumber: true })}
+              {...register('price', { valueAsNumber: true })}
             />
           </div>
 
-          <div className="grid place-items-center gap-4 w-full">
+          <div className='grid place-items-center gap-4 w-full'>
             <Input
-              type="text"
-              placeholder="Categoria"
-              className="col-span-3"
+              type='text'
+              placeholder='Categoria'
+              className='col-span-3'
               required
-              {...register("category")}
+              {...register('category')}
             />
           </div>
 
           <Controller
             control={control}
-            name="type"
+            name='type'
             render={({ field }) => {
               console.log(field);
               return (
                 <RadioGroup
                   onValueChange={field.onChange}
                   value={field.value}
-                  className="flex flex-row justify-center gap-4"
+                  className='flex flex-row justify-center gap-4'
                 >
                   <Button
-                    type="submit"
-                    className="flex max-w-[300px] gap-3 hover:bg-green-400 p-2 items-center rounded-md "
+                    type='submit'
+                    className='flex max-w-[300px] gap-3 hover:bg-green-400 p-2 items-center rounded-md '
                   >
-                    <RadioGroupItem value="income">
-                      <ArrowCircleUp fontSize={16} color="#000" />
+                    <RadioGroupItem value='income'>
+                      <ArrowCircleUp fontSize={16} color='#000' />
                     </RadioGroupItem>
                     <p>Entrada</p>
                   </Button>
 
-                  <Button className="flex max-w-[300px] gap-3 hover:bg-rose-400 p-2 items-center rounded-md ">
-                    <RadioGroupItem value="outcome">
-                      <ArrowCircleUp fontSize={16} color="#000" />
+                  <Button className='flex max-w-[300px] gap-3 hover:bg-rose-400 p-2 items-center rounded-md '>
+                    <RadioGroupItem value='outcome'>
+                      <ArrowCircleUp fontSize={16} color='#000' />
                     </RadioGroupItem>
                     <p>Saída</p>
                   </Button>
@@ -138,14 +138,14 @@ export function NewTransactionModal() {
             }}
           />
 
-          <DialogDescription className="flex flex-row justify-center items-center gap-2">
+          <DialogDescription className='flex flex-row justify-center items-center gap-2'>
             <AlertCircle />
             Selecione uma das opções
           </DialogDescription>
 
           <Button
-            className="w-full disabled:cursor-not-allowed disabled:bg-opacity-5 "
-            type="submit"
+            className='w-full disabled:cursor-not-allowed disabled:bg-opacity-5 '
+            type='submit'
             disabled={isSubmitting}
           >
             Cadastrar
