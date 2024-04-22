@@ -18,10 +18,10 @@ cd controlFinance
 
 4. Instale as dependências
 ```
-yarn install
+npm install
 ```
 
 6. Execute a aplicação em modo de desenvolvimento
 ```
-yarn run dev
+npm run dev
 ```
